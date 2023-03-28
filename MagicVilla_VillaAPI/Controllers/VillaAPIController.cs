@@ -14,6 +14,7 @@ namespace MagicVilla_VillaAPI.Controllers
     public class VillaAPIController : ControllerBase
     {
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<VillaDto>> GetVillas()
         {
             return Ok(VillaStore.villaList);
@@ -21,7 +22,16 @@ namespace MagicVilla_VillaAPI.Controllers
 
         // if you do not define HTTP Verb, it defaults to HTTPGET
         [HttpGet("{id:int}")]
-        public ActionResult<VillaDto?> GetVilla(int id)
+        // Using Status Codes
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        // Manual Way
+        // [ProducesResponseType(200, Type =typeof(VillaDto))]
+        // [ProducesResponseType(404)]
+        // [ProducesResponseType(400)]
+        public ActionResult GetVilla(int id)
         {
             if (id == 0)
             {
