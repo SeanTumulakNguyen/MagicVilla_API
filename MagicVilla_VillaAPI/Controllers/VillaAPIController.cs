@@ -21,7 +21,7 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         // if you do not define HTTP Verb, it defaults to HTTPGET
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetVilla")]
         // Using Status Codes
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -46,7 +46,7 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<VillaDto> CreateVilla([FromBody]VillaDto villaDto)
@@ -62,7 +62,7 @@ namespace MagicVilla_VillaAPI.Controllers
             villaDto.Id = VillaStore.villaList.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
             VillaStore.villaList.Add(villaDto);
 
-                return Ok(villaDto);
+                return CreatedAtRoute("GetVilla", new { id = villaDto.Id }, villaDto);
         }
     }
 }
