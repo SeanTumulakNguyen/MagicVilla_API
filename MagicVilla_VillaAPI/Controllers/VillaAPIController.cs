@@ -51,6 +51,10 @@ namespace MagicVilla_VillaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<VillaDto> CreateVilla([FromBody]VillaDto villaDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (villaDto == null)
             {
                 return BadRequest(villaDto);
