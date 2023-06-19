@@ -2,6 +2,16 @@
 {
     public class ILogging
     {
-        public void Log(string message, string type);
+        public void Log(string message, string type)
+        {
+            if (type == "error")
+            {
+                Console.WriteLine("ERROR = " + message);
+            }
+            else
+            {
+                Console.WriteLine(message);
+            }
+        }
     }
 }
