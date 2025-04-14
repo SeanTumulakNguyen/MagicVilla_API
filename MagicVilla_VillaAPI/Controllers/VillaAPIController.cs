@@ -72,12 +72,14 @@ namespace MagicVilla_VillaAPI.Controllers
                 {
                 if (id == 0)
                     {
-                    return BadRequest();
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    return BadRequest(_response);
                     }
                 var villa = await _dbVilla.GetAsync(u => u.Id == id);
                 if (villa == null)
                     {
-                    return NotFound();
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    return NotFound(_response);
                     }
                 _response.Result = _mapper.Map<VillaDto>(villa);
                 _response.StatusCode = HttpStatusCode.OK;
